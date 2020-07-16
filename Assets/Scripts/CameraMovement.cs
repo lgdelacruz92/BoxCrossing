@@ -18,7 +18,9 @@ public class CameraMovement : MonoBehaviour
     {
         if (initialPlayerZ != playerTranform.position)
         {
-            cameraTransform.position = new Vector3(cameraTransform.position.x, cameraTransform.position.y, cameraTransform.position.z + (playerTranform.position.z - initialPlayerZ.z));
+            cameraTransform.position = new Vector3(cameraTransform.position.x + (playerTranform.position.x - initialPlayerZ.x),
+                cameraTransform.position.y + (playerTranform.position.y - initialPlayerZ.y),
+                cameraTransform.position.z + (playerTranform.position.z - initialPlayerZ.z));
             initialPlayerZ = playerTranform.position;
         }
     }
