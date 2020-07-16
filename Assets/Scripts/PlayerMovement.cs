@@ -1,39 +1,84 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody playerRigidBody;
+    public Transform playerTransform;
+    public MeshRenderer playerMeshRenderer;
     public Vector3 jumpForce;
+    public Vector3 leftForce;
+    public Vector3 rightForce;
     public Vector3 gravity;
     public Vector3 forwardForce;
+    public int collisionForce;
+    public bool jumping = false;
 
-    private void FixedUpdate()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        Physics.gravity = gravity;
+    }
+
+    private void Update()
+    {
+
+        if (playerTransform.position.y > 2.3)
         {
-            playerRigidBody.AddForce(jumpForce);
-            playerRigidBody.AddForce(forwardForce);
+            jumping = true;
+        }
+        else
+        {
+            jumping = false;
         }
 
-        playerRigidBody.AddForce(gravity);
+        if (!jumping)
+        {
+            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)))
+            {
+                playerRigidBody.AddForce(jumpForce);
+                playerRigidBody.AddForce(forwardForce);
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                playerRigidBody.AddForce(jumpForce);
+                playerRigidBody.AddForce(leftForce);
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                playerRigidBody.AddForce(jumpForce);
+                playerRigidBody.AddForce(rightForce);
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                playerRigidBody.AddForce(jumpForce);
+                playerRigidBody.AddForce(-1 * forwardForce);
+            }
+
+        }
+
+        if (playerTransform.position.y < -10)
+        {
+            Invoke("PlayerDead", 1f);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.name == "Car Left" || collision.collider.name == "Car Right")
+        if (collision.collider.name.IndexOf("Car Right") != -1 || collision.collider.name.IndexOf("Car Left") != -1)
         {
             playerRigidBody.freezeRotation = false;
-            if (collision.collider.name == "Car Right")
+            if (collision.collider.name.IndexOf("Car Right") != -1)
             {
-                playerRigidBody.AddForce(5000, 0, 0);
+                playerRigidBody.AddForce(collisionForce, 30, 0);
             }
-            else if (collision.collider.name == "Car Left")
+            else if (collision.collider.name.IndexOf("Car Left") != -1)
             {
-                playerRigidBody.AddForce(-5000, 0, 0);
+                playerRigidBody.AddForce(-1 * collisionForce, 30, 0);
             }
+            playerMeshRenderer.material.color = Color.red;
             Invoke("PlayerDead", 2f);
-        } 
-    } 
+        }
+    }
 
     private void PlayerDead()
     {
