@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
 
-        if (playerTransform.position.y > 2.3)
+        if (playerTransform.position.y > 2.6)
         {
             jumping = true;
         }
@@ -54,6 +54,11 @@ public class PlayerMovement : MonoBehaviour
                 playerRigidBody.AddForce(-1 * forwardForce);
             }
 
+        }
+
+        if (playerTransform.position.z < 0)
+        {
+            playerTransform.position = new Vector3(playerTransform.position.x, playerTransform.position.y, 0f);
         }
 
         if (playerTransform.position.y < -10)
