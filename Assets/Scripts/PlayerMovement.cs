@@ -1,43 +1,70 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Transform playerTransform;
     public Rigidbody playerRigidBody;
-    public Vector3 jumpForce;
-    public Vector3 gravity;
-    public Vector3 forwardForce;
+    public float jumpNudge;
+    private bool jumping;
+    private bool jump;
+
+    private Vector3 gravity;
+    private float maxJumpHeight;
+
+    private float jumpingOffTolerance;
+
+    private float startTime;
+
+
+    private void Start()
+    {
+        gravity = new Vector3(0, -355.55f, 0);
+        Physics.gravity = gravity;
+        maxJumpHeight = 4f;
+        jumpingOffTolerance = 0.002f;
+        jump = false;
+        startTime = Time.time;
+    }
+
+    private void Update()
+    {
+        if (playerTransform.position.y <= 0f + jumpingOffTolerance)
+        {
+            jumping = false;
+            startTime = Time.time;
+        }
+        else
+        {
+            jumping = true;
+        }
+
+        if (!jumping && Input.GetKeyDown(KeyCode.UpArrow)) {
+            jump = true;
+        }
+    }
 
     private void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            playerRigidBody.AddForce(jumpForce);
-            playerRigidBody.AddForce(forwardForce);
+        if (jump) {
+            playerRigidBody.AddForce(GetJumpForce());
+            jump = false;
         }
 
-        playerRigidBody.AddForce(gravity);
+        if (jumping) {
+            playerRigidBody.AddForce(GetForwardForce());
+        }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private Vector3 GetJumpForce()
     {
-        if (collision.collider.name == "Car Left" || collision.collider.name == "Car Right")
-        {
-            playerRigidBody.freezeRotation = false;
-            if (collision.collider.name == "Car Right")
-            {
-                playerRigidBody.AddForce(5000, 0, 0);
-            }
-            else if (collision.collider.name == "Car Left")
-            {
-                playerRigidBody.AddForce(-5000, 0, 0);
-            }
-            Invoke("PlayerDead", 2f);
-        } 
-    } 
-
-    private void PlayerDead()
-    {
-        GameManager gameManager = FindObjectOfType<GameManager>();
-        gameManager.GameOver();
+        float gravityDown = gravity.y;
+        return new Vector3(0, -1 * (gravityDown / 2) * Mathf.Pow(maxJumpHeight, 2), 0);
     }
+
+    private Vector3 GetForwardForce() 
+    {
+        return new Vector3(0, 0, 4f / Mathf.Pow(0.3f, 2) + jumpNudge);
+    }
+
 }
