@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 
 public class Game : MonoBehaviour
 {
@@ -12,6 +15,10 @@ public class Game : MonoBehaviour
     private List<List<GameObject>> roadObjects;
 
     public int roadsSize;
+
+    public Transform playerTransform;
+
+    public Text pointsFeedbackText;
 
     void Start()
     {   
@@ -38,6 +45,15 @@ public class Game : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        int points = (int)Mathf.Floor(playerTransform.position.z);
+        if (points < 0) {
+            points = 0;
+        }
+        pointsFeedbackText.text = "Total Points: " + points;    
+    }
+
     void FixedUpdate()
     {
         foreach (var road in roadObjects) {
@@ -50,5 +66,10 @@ public class Game : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void GameOver() {
+        int gameOverSceneIndex = 1;
+        SceneManager.LoadScene(gameOverSceneIndex);
     }
 }
