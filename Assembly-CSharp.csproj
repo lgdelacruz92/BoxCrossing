@@ -39,6 +39,9 @@
      <Compile Include="Assets\Scripts\CameraMovement.cs" />
      <Compile Include="Assets\Scripts\Game.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\Road.cs" />
+     <Compile Include="Assets\Scripts\RoadFactory.cs" />
+     <Compile Include="Assets\Scripts\RoadObjects.cs" />
      <Compile Include="Assets\Scripts\Truck.cs" />
      <Compile Include="Assets\Scripts\TrucksRoad.cs" />
     <Reference Include="UnityEngine">
