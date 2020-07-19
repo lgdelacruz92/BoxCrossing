@@ -12,4 +12,6 @@ public class RoadObjectFactory : MonoBehaviour
         roadObject.GetComponent<Rigidbody>().velocity = velocity;
         return roadObject;
     }
+
+    
 }
