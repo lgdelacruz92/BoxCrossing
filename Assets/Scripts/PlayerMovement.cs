@@ -67,4 +67,14 @@ public class PlayerMovement : MonoBehaviour
         return new Vector3(0, 0, 4f / Mathf.Pow(0.3f, 2) + jumpNudge);
     }
 
+    private void OnCollisionEnter(Collision collisionInfo)
+    {
+        if (collisionInfo.gameObject.tag == "RoadObject") {
+            GameObject objectCollidedWith = collisionInfo.gameObject;
+            Vector3 objectsVelocity = objectCollidedWith.GetComponent<Rigidbody>().velocity;
+            objectsVelocity /= objectsVelocity.magnitude;
+            playerRigidBody.AddForce(objectsVelocity.x * 5000, 1000, 0);
+        }
+    }
+
 }
