@@ -38,11 +38,15 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\CameraMovement.cs" />
      <Compile Include="Assets\Scripts\Game.cs" />
+     <Compile Include="Assets\Scripts\GameNetworking.cs" />
      <Compile Include="Assets\Scripts\GameOver.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\RoadFactory.cs" />
      <Compile Include="Assets\Scripts\RoadObjectFactory.cs" />
      <Compile Include="Assets\Scripts\RoadObjects.cs" />
+     <Compile Include="Assets\Scripts\ScoreItem.cs" />
+     <Compile Include="Assets\Scripts\ScoreList.cs" />
+     <Compile Include="Assets\Scripts\SimpleJSON.cs" />
      <Compile Include="Assets\Scripts\Truck.cs" />
      <Compile Include="Assets\Scripts\TrucksRoad.cs" />
      <None Include="Assets\Fonts\Roboto\LICENSE.txt" />

@@ -6,7 +6,6 @@ public class GameOver : MonoBehaviour
 {
     public Button restartButton;
 
-
     void Start()
     {
         restartButton.onClick.AddListener(Restart);

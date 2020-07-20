@@ -20,6 +20,8 @@ public class Game : MonoBehaviour
 
     public Text pointsFeedbackText;
 
+
+
     void Start()
     {   
         roads = new GameObject[roadsSize];
