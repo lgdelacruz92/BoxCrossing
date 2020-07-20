@@ -155,8 +155,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -962.23, y: -496.77}
-  m_SizeDelta: {x: 309.53552, y: 114.4599}
+  m_AnchoredPosition: {x: -913.9, y: -495.6}
+  m_SizeDelta: {x: 406.23975, y: 116.818054}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &212384907
 MonoBehaviour:
@@ -190,7 +190,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 'Total Points: 0'
 --- !u!222 &212384908
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -817,6 +817,8 @@ MonoBehaviour:
   roadFactory: {fileID: 2020007482}
   roadObjectFactory: {fileID: 1371527194}
   roadsSize: 100
+  playerTransform: {fileID: 2097348183}
+  pointsFeedbackText: {fileID: 212384907}
 --- !u!4 &1649569729
 Transform:
   m_ObjectHideFlags: 0
