@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class GameOver : MonoBehaviour
 {
     public Button restartButton;
+    public Text score;
 
     void Start()
     {

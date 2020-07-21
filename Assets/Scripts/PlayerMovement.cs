@@ -8,8 +8,6 @@ public class PlayerMovement : MonoBehaviour
 
     public float jumpNudge;
 
-    public Game game;
-
     private bool jumping;
     private bool jump;
 
@@ -169,7 +167,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void GameOver() {
-        game.GameOver();
+        Game.Instance.GameOver();
     }
 
 }
