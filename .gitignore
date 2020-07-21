@@ -1,0 +1,13 @@
+.vs/
+Library/
+Logs/
+Temp/
+*.csproj
+*.sln
+obj/
+*/*.meta
+*/*/*.cs.meta
+*/*/*.unity.meta
+*/*/*.mat.meta
+*.meta
+.DS_Store
