@@ -167,7 +167,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void GameOver() {
-        Game.Instance.GameOver();
+
     }
 
 }

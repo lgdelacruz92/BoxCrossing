@@ -7,7 +7,18 @@ public class GameState  {
 
 public class Game
 {
-    private int score;
+    private static Game _instance;
+
+    public static Game Instance {
+        get {
+            if (_instance == null) {
+                return new Game();
+            }
+            return _instance;
+        }
+    }
+
+    private int score = 0;
     public int playerScore {
         get {
             return score;
