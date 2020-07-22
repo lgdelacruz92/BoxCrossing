@@ -623,7 +623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 181d0d48e7c844e49afb4b57cfb3699b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclePrefab: {fileID: 6658755444981463404, guid: f4d2e67d870c04982bdc72d9e3f6db5a,
+  obstaclePrefab: {fileID: -3893370058091831494, guid: f4d2e67d870c04982bdc72d9e3f6db5a,
     type: 3}
 --- !u!4 &952914518
 Transform:

@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-public class ObstacleObjectsFactory : MonoBehaviour
+public class VehicleFactory : MonoBehaviour
 {
     public GameObject obstaclePrefab;
 }
