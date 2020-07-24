@@ -649,6 +649,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   restartButton: {fileID: 1283444014}
   score: {fileID: 1487904671}
+  saveButton: {fileID: 918148228}
+  nameInputField: {fileID: 2097854825}
 --- !u!4 &879711467
 Transform:
   m_ObjectHideFlags: 0
@@ -676,7 +678,7 @@ GameObject:
   - component: {fileID: 918148229}
   - component: {fileID: 918148228}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Save
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

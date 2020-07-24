@@ -27,7 +27,6 @@ public class Level1 : MonoBehaviour
         {
             score = playerObject.GetComponent<Transform>().position.z;
             Game.Instance.playerScore = (int)Mathf.Round(score);
-            Debug.Log(Game.Instance.playerScore);
             scoreFeedback.text = $"Score: {Game.Instance.playerScore}";
         }
     }
