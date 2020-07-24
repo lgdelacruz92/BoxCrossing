@@ -3,12 +3,13 @@ using UnityEngine.Networking;
 using System.Collections;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class GameNetworking {
     private static readonly string BOX_CROSSING_GAME_SERVER_URL = "http://ec2-3-23-127-210.us-east-2.compute.amazonaws.com";
     // private static readonly string BOX_CROSSING_GAME_SERVER_URL = "http://localhost:80";
 
-    public static IEnumerator GetScores()
+    public static IEnumerator GetScores(Action<JSONNode> onSuccess, Action onError)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(BOX_CROSSING_GAME_SERVER_URL + "/scores"))
         {
@@ -25,7 +26,7 @@ public class GameNetworking {
             else
             {
                 JSONNode result = JSON.Parse(webRequest.downloadHandler.text);
-                Debug.Log(result);
+                onSuccess(result);
             }
         }
     }
