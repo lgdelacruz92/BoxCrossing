@@ -1,7 +1,8 @@
-﻿
+﻿using UnityEngine;
+
 public class GameState  {
-    private readonly int RUNNING = 0;
-    private readonly int GAME_OVER = 0;
+    public static readonly int RUNNING = 0;
+    public static readonly int GAME_OVER = 0;
 }
 
 
@@ -12,7 +13,7 @@ public class Game
     public static Game Instance {
         get {
             if (_instance == null) {
-                return new Game();
+                _instance = new Game();
             }
             return _instance;
         }
@@ -24,12 +25,12 @@ public class Game
             return score;
         }
         set {
-            score = value;
+            score = value;  
         }
     }
-    private GameState gameState;
+    private int gameState;
 
-    public GameState gameOver {
+    public int gameOver {
         get {
             return gameState;
         }

@@ -12,8 +12,14 @@ public class GameOver : MonoBehaviour
         restartButton.onClick.AddListener(Restart);
     }
 
+    private void Update()
+    {
+        score.text = $"Score: {Game.Instance.playerScore}";
+    }
+
     private void Restart() {
         int level1SceneIndex = 0;
+        Game.Instance.playerScore = 0;
         SceneManager.LoadScene(level1SceneIndex);
     }
 }
