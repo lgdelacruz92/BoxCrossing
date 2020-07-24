@@ -170,4 +170,8 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    public bool IsJumping {
+        get { return jumping; }
+    }
+
 }
