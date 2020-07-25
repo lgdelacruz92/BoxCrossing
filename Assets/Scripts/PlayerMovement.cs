@@ -137,6 +137,13 @@ public class PlayerMovement : MonoBehaviour
         if (playerTransform.position.y < -10) {
             Invoke("GameOver", 1);
         }
+
+        if (playerTransform.position.x < -10) {
+            playerTransform.position = new Vector3(-10, playerTransform.position.y, playerTransform.position.z);
+        }
+        else if (playerTransform.position.x > 14) {
+            playerTransform.position = new Vector3(14, playerTransform.position.y, playerTransform.position.z);
+        }
     }
 
     private Vector3 GetJumpForce()
@@ -159,11 +166,10 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollisionEnter(Collision collisionInfo)
     {
         if (collisionInfo.gameObject.tag == "Vehicle") {
-            // GameObject objectCollidedWith = collisionInfo.gameObject;
-            // Vector3 objectsVelocity = objectCollidedWith.GetComponent<Rigidbody>().velocity;
-            // objectsVelocity /= objectsVelocity.magnitude;
-            // playerRigidBody.AddForce(objectsVelocity.x * 5000, 1000, 0);
-            Debug.Log("Collided");
+            GameObject objectCollidedWith = collisionInfo.gameObject;
+            Vector3 objectsVelocity = objectCollidedWith.GetComponent<Rigidbody>().velocity;
+            objectsVelocity /= objectsVelocity.magnitude;
+            playerRigidBody.AddForce(objectsVelocity.x * 5000, 1000, 0);
             Invoke("GameOver", 1);
         }
     }

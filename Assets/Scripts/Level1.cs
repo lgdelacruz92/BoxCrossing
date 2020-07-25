@@ -49,17 +49,23 @@ public class Level1 : MonoBehaviour
 
     private void CreateRoads()
     {
+        // Prep road creation
         Vector3 startPos = new Vector3(0, -5.5f, 2);
         roadsList = new List<GameObject>();
         vehiclesList = new List<List<GameObject>>();
+
         for (int i = 0; i < roadSize; i++)
         {
+            // Instantiate road position
             Vector3 roadPos = startPos + new Vector3(0, 0, i * 2);
             GameObject road = Instantiate(roadPrefab, roadPos, Quaternion.identity);
+
+            // Add color to road
             Color randColor = ColorUtils.RandomColor();
             road.GetComponent<MeshRenderer>().material.color = randColor;
             roadsList.Add(road);
 
+            // Create vehicles for that road
             CreateVehicles(roadPos, 5, randColor, Mathf.Floor(Random.value * 5) + 1, new Vector3(Random.value * 10 - 5, 0, 0));
         }
     }
@@ -69,13 +75,18 @@ public class Level1 : MonoBehaviour
 
         List<GameObject> vehicles = new List<GameObject>();
         for (int i = 0; i < randInt; i++) {
+            // Instantiate vehicles
             GameObject vehicle = Instantiate(vehiclePrefab, pos + new Vector3(i * 10, 5.5f, 0), Quaternion.identity);
+            // Add color
             vehicle.GetComponent<MeshRenderer>().material.color = color;
+            // Change size
             Vector3 scale = vehicle.GetComponent<Transform>().localScale;
             vehicle.GetComponent<Transform>().localScale = new Vector3(scale.x * scaleX, scale.y, scale.z);
+            // Add velocity
             vehicle.GetComponent<Rigidbody>().velocity = velocity;
             vehicles.Add(vehicle);
         }
+        // Append to vehicles list
         vehiclesList.Add(vehicles);
     }
 
