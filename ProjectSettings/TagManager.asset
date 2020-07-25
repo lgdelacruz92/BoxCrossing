@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - RoadObject
+  - Vehicle
   layers:
   - Default
   - TransparentFX

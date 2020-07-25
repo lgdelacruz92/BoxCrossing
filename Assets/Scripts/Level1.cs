@@ -43,6 +43,7 @@ public class Level1 : MonoBehaviour
 
     private void GameOver()
     {
+        Game.Instance.gameOver = GameState.GAME_OVER;
         SceneManager.LoadScene(1);
     }
 
@@ -59,11 +60,11 @@ public class Level1 : MonoBehaviour
             road.GetComponent<MeshRenderer>().material.color = randColor;
             roadsList.Add(road);
 
-            CreateVehicles(roadPos, 5, randColor, Mathf.Floor(Random.value * 5) + 1);
+            CreateVehicles(roadPos, 5, randColor, Mathf.Floor(Random.value * 5) + 1, new Vector3(Random.value * 10 - 5, 0, 0));
         }
     }
 
-    private void CreateVehicles(Vector3 pos, int maxNum, Color color, float scaleX) {
+    private void CreateVehicles(Vector3 pos, int maxNum, Color color, float scaleX, Vector3 velocity) {
         int randInt = (int)Mathf.Floor(Random.value * maxNum) + 1;
 
         List<GameObject> vehicles = new List<GameObject>();
@@ -72,8 +73,10 @@ public class Level1 : MonoBehaviour
             vehicle.GetComponent<MeshRenderer>().material.color = color;
             Vector3 scale = vehicle.GetComponent<Transform>().localScale;
             vehicle.GetComponent<Transform>().localScale = new Vector3(scale.x * scaleX, scale.y, scale.z);
+            vehicle.GetComponent<Rigidbody>().velocity = velocity;
             vehicles.Add(vehicle);
         }
         vehiclesList.Add(vehicles);
     }
+
 }

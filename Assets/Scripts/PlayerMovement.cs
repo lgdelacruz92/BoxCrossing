@@ -1,5 +1,6 @@
 ﻿
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -157,21 +158,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collisionInfo)
     {
-        if (collisionInfo.gameObject.tag == "RoadObject") {
-            GameObject objectCollidedWith = collisionInfo.gameObject;
-            Vector3 objectsVelocity = objectCollidedWith.GetComponent<Rigidbody>().velocity;
-            objectsVelocity /= objectsVelocity.magnitude;
-            playerRigidBody.AddForce(objectsVelocity.x * 5000, 1000, 0);
+        if (collisionInfo.gameObject.tag == "Vehicle") {
+            // GameObject objectCollidedWith = collisionInfo.gameObject;
+            // Vector3 objectsVelocity = objectCollidedWith.GetComponent<Rigidbody>().velocity;
+            // objectsVelocity /= objectsVelocity.magnitude;
+            // playerRigidBody.AddForce(objectsVelocity.x * 5000, 1000, 0);
+            Debug.Log("Collided");
             Invoke("GameOver", 1);
         }
     }
 
     private void GameOver() {
-
+        Game.Instance.gameOver = GameState.GAME_OVER;
+        SceneManager.LoadScene(1);
     }
 
     public bool IsJumping {
         get { return jumping; }
     }
-
 }

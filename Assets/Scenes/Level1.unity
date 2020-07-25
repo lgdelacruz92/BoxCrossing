@@ -266,7 +266,7 @@ MonoBehaviour:
   scoreFeedback: {fileID: 896327728}
   roadPrefab: {fileID: 174274050575521889, guid: 9e11827a633934307b4b25e573e7cf14,
     type: 3}
-  vehiclePrefab: {fileID: 4040484154236181931, guid: f4d2e67d870c04982bdc72d9e3f6db5a,
+  vehiclePrefab: {fileID: 8619332914177390902, guid: f4d2e67d870c04982bdc72d9e3f6db5a,
     type: 3}
   playerObject: {fileID: 2590292763373495837}
 --- !u!1 &692996151
