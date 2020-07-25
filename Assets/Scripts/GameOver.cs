@@ -60,7 +60,7 @@ public class GameOver : MonoBehaviour
     private void OnSuccess()
     {
         saveStatusText.text = "Saved!";
-        saveStatusText.color = Color.green; 
+        saveStatusText.color = new Color(43f/255, 134f/255, 118f/255); 
     }
 
     private void OnError(NetworkingError error)

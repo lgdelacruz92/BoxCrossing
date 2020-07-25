@@ -66,7 +66,11 @@ public class Level1 : MonoBehaviour
             roadsList.Add(road);
 
             // Create vehicles for that road
-            CreateVehicles(roadPos, 5, randColor, Mathf.Floor(Random.value * 5) + 1, new Vector3(Random.value * 10 - 5, 0, 0));
+            Vector3 velocity = new Vector3(Mathf.Pow(1.05f, i), 0, 0);
+            if (Random.value > 0.5f) {
+                velocity *= -1;
+            }
+            CreateVehicles(roadPos, 5, randColor, Mathf.Floor(Random.value * 5) + 1, velocity);
         }
     }
 
