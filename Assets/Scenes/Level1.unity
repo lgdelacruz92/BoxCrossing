@@ -266,7 +266,7 @@ MonoBehaviour:
   scoreFeedback: {fileID: 896327728}
   roadPrefab: {fileID: 174274050575521889, guid: 9e11827a633934307b4b25e573e7cf14,
     type: 3}
-  vehiclePrefab: {fileID: 8963550657077168150, guid: f4d2e67d870c04982bdc72d9e3f6db5a,
+  vehiclePrefab: {fileID: 4040484154236181931, guid: f4d2e67d870c04982bdc72d9e3f6db5a,
     type: 3}
   playerObject: {fileID: 2590292763373495837}
 --- !u!1 &692996151
@@ -356,7 +356,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 692996151}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5.5, z: -9.5}
+  m_LocalPosition: {x: 0, y: -5.5, z: -9}
   m_LocalScale: {x: 100, y: 10, z: 20}
   m_Children: []
   m_Father: {fileID: 0}
@@ -488,7 +488,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -344.82, y: -174.27}
+  m_AnchoredPosition: {x: -344.82, y: -160.75}
   m_SizeDelta: {x: 110.360535, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &896327728

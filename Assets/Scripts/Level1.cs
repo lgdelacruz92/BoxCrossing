@@ -10,7 +10,8 @@ public class Level1 : MonoBehaviour
     public GameObject vehiclePrefab;
     public GameObject playerObject;
 
-    private List<GameObject> roadDictionary;
+    private List<GameObject> roadsList;
+    private List<List<GameObject>> vehiclesList;
     private readonly int roadSize = 10;
     private float score;
 
@@ -48,12 +49,31 @@ public class Level1 : MonoBehaviour
     private void CreateRoads()
     {
         Vector3 startPos = new Vector3(0, -5.5f, 2);
-        roadDictionary = new List<GameObject>();
+        roadsList = new List<GameObject>();
+        vehiclesList = new List<List<GameObject>>();
         for (int i = 0; i < roadSize; i++)
         {
-            GameObject road = Instantiate(roadPrefab, startPos + new Vector3(0, 0, i * 2), Quaternion.identity);
-            road.GetComponent<MeshRenderer>().material.color = ColorUtils.RandomColor();
-            roadDictionary.Add(road);
+            Vector3 roadPos = startPos + new Vector3(0, 0, i * 2);
+            GameObject road = Instantiate(roadPrefab, roadPos, Quaternion.identity);
+            Color randColor = ColorUtils.RandomColor();
+            road.GetComponent<MeshRenderer>().material.color = randColor;
+            roadsList.Add(road);
+
+            CreateVehicles(roadPos, 5, randColor, Mathf.Floor(Random.value * 5) + 1);
         }
+    }
+
+    private void CreateVehicles(Vector3 pos, int maxNum, Color color, float scaleX) {
+        int randInt = (int)Mathf.Floor(Random.value * maxNum) + 1;
+
+        List<GameObject> vehicles = new List<GameObject>();
+        for (int i = 0; i < randInt; i++) {
+            GameObject vehicle = Instantiate(vehiclePrefab, pos + new Vector3(i * 10, 5.5f, 0), Quaternion.identity);
+            vehicle.GetComponent<MeshRenderer>().material.color = color;
+            Vector3 scale = vehicle.GetComponent<Transform>().localScale;
+            vehicle.GetComponent<Transform>().localScale = new Vector3(scale.x * scaleX, scale.y, scale.z);
+            vehicles.Add(vehicle);
+        }
+        vehiclesList.Add(vehicles);
     }
 }
