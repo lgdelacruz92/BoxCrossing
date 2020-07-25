@@ -25,6 +25,10 @@ public class GameOver : MonoBehaviour
 
     public Transform leaderBoardTransform;
 
+    public Text saveStatusText;
+
+    private GameObject[] scoreItemsGameObject;
+
     void Start()
     {
         restartButton.onClick.AddListener(Restart);
@@ -32,8 +36,7 @@ public class GameOver : MonoBehaviour
         leaderBoardButton.onClick.AddListener(ShowLeaderBoard);
         leaderBoardPanel.gameObject.SetActive(false);
         exitLeaderBoardButton.onClick.AddListener(ExitLeaderBoardButton);
-
-        InitializeLeaderBoard();
+        saveStatusText.text = "";
     }
 
     private void Update()
@@ -41,59 +44,90 @@ public class GameOver : MonoBehaviour
         score.text = $"Score: {Game.Instance.playerScore}";
     }
 
-    private void Restart() {
+    private void Restart()
+    {
         int level1SceneIndex = 0;
         Game.Instance.playerScore = 0;
         SceneManager.LoadScene(level1SceneIndex);
     }
 
-    private void SaveScore() {
+    private void SaveScore()
+    {
         StartCoroutine(GameNetworking.SaveScore(nameInputField.text, Game.Instance.playerScore, OnSuccess, OnError));
         nameInputField.text = "";
     }
 
-    private void OnSuccess() {
-        Restart();
+    private void OnSuccess()
+    {
+        saveStatusText.text = "Saved!";
     }
 
-    private void OnError() {
-
+    private void OnError()
+    {
+        saveStatusText.text = "Error saving...";
     }
 
-    private void ShowLeaderBoard() {
-        leaderBoardPanel.gameObject.SetActive(true);
+    private void ShowLeaderBoard()
+    {
+        InitializeLeaderBoard();
     }
 
-    private void ExitLeaderBoardButton() {
+    private void ExitLeaderBoardButton()
+    {
         leaderBoardPanel.gameObject.SetActive(false);
     }
 
-    private void InitializeLeaderBoard() {
+    private void InitializeLeaderBoard()
+    {
         StartCoroutine(GameNetworking.GetScores(OnGetScoresSuccess, OnGetScoresError));
     }
 
-    private void OnGetScoresSuccess(JSONNode result) {
-        if (result.IsArray) {
-            Vector3 startPos = new Vector3(0, 0, 0);
+    private void OnGetScoresSuccess(JSONNode result)
+    {
+        if (result.IsArray)
+        {
+            // Make content size match if greater than 50
+            int itemsCount = result.Count;
+            if (itemsCount > 50)
+            {
+                itemsCount = 50;
+            }
+
             List<ScoreItem> userScoreItems = new List<ScoreItem>();
-            for (int i = 0; i < result.Count; i++) {
+            for (int i = 0; i < itemsCount; i++)
+            {
                 string name = result[i]["data"]["name"];
                 string score = result[i]["data"]["score"];
                 userScoreItems.Add(new ScoreItem(name, score));
             }
 
-            userScoreItems.Sort((x, y) => y.score.CompareTo(x.score));
-
-            for (int i = 0; i < userScoreItems.Count; i++) {
-                GameObject userScoreItemGameObject = Instantiate(userScoreItemPrefab, startPos + i * new Vector3(0, -55, 0), Quaternion.identity);
-                userScoreItemGameObject.GetComponent<UserScoreItem>().nameText.text = userScoreItems[i].name;
-                userScoreItemGameObject.GetComponent<UserScoreItem>().scoreText.text = userScoreItems[i].score;
-                userScoreItemGameObject.GetComponent<Transform>().SetParent(leaderBoardTransform);
+            if (scoreItemsGameObject != null)
+            {
+                if (scoreItemsGameObject.Length > 0)
+                {
+                    for (int i = 0; i < scoreItemsGameObject.Length; i++)
+                    {
+                        Destroy(scoreItemsGameObject[i]);
+                    }
+                }
             }
+            scoreItemsGameObject = new GameObject[itemsCount];
 
+            userScoreItems.Sort((x, y) => y.score.CompareTo(x.score));
+            for (int i = 0; i < itemsCount; i++)
+            {
+                scoreItemsGameObject[i] = Instantiate(userScoreItemPrefab, leaderBoardTransform.position + i * new Vector3(0, -55, 0), Quaternion.identity);
+                scoreItemsGameObject[i].GetComponent<UserScoreItem>().nameText.text = userScoreItems[i].name;
+                scoreItemsGameObject[i].GetComponent<UserScoreItem>().scoreText.text = userScoreItems[i].score;
+                scoreItemsGameObject[i].GetComponent<Transform>().SetParent(leaderBoardTransform);
+                scoreItemsGameObject[i].GetComponent<Transform>().localScale = new Vector3(1, 1, 1);
+            }
         }
+        leaderBoardPanel.gameObject.SetActive(true);
+
     }
 
-    private void OnGetScoresError() {
+    private void OnGetScoresError()
+    {
     }
 }
