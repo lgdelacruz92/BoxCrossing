@@ -1,8 +1,8 @@
 public class ScoreItem {
     public string name;
-    public string score;
+    public int score;
 
-    public ScoreItem(string _name, string _score) {
+    public ScoreItem(string _name, int _score) {
         name = _name;
         score = _score;
     }

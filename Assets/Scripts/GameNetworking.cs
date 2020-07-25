@@ -31,7 +31,7 @@ public class GameNetworking {
         }
     }
 
-    public static IEnumerator SaveScore(string name, int score, Action onSucces, Action onError)
+    public static IEnumerator SaveScore(string name, int score, Action onSucces, Action<NetworkingError> onError)
     {   
 
         WWWForm postData = new WWWForm();
@@ -48,10 +48,14 @@ public class GameNetworking {
             string[] pages = BOX_CROSSING_GAME_SERVER_URL.Split('/');
             int page = pages.Length - 1;
 
-            if (webRequest.isNetworkError)
+            if (name == "") {
+                onError(new NetworkingError(NetworkingErrorCode.NAME_IS_EMPTY, "Error: name can't be empty."));
+            }
+
+            else if (webRequest.isNetworkError)
             {
                 Debug.Log(pages[page] + ": Error: " + webRequest.error);
-                onError();
+                onError(new NetworkingError(NetworkingErrorCode.NETWORK_ERROR, "Error in network: please double check you have internet connection."));
             }
             else
             {

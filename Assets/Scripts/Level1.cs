@@ -12,7 +12,7 @@ public class Level1 : MonoBehaviour
 
     private List<GameObject> roadsList;
     private List<List<GameObject>> vehiclesList;
-    private readonly int roadSize = 10;
+    private readonly int roadSize = 100;
     private float score;
 
     void Start()

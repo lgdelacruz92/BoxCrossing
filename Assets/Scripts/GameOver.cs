@@ -60,11 +60,13 @@ public class GameOver : MonoBehaviour
     private void OnSuccess()
     {
         saveStatusText.text = "Saved!";
+        saveStatusText.color = Color.green; 
     }
 
-    private void OnError()
+    private void OnError(NetworkingError error)
     {
-        saveStatusText.text = "Error saving...";
+        saveStatusText.text = error.MESSAGE;
+        saveStatusText.color = Color.red;
     }
 
     private void ShowLeaderBoard()
@@ -93,14 +95,6 @@ public class GameOver : MonoBehaviour
                 itemsCount = 50;
             }
 
-            List<ScoreItem> userScoreItems = new List<ScoreItem>();
-            for (int i = 0; i < itemsCount; i++)
-            {
-                string name = result[i]["data"]["name"];
-                string score = result[i]["data"]["score"];
-                userScoreItems.Add(new ScoreItem(name, score));
-            }
-
             if (scoreItemsGameObject != null)
             {
                 if (scoreItemsGameObject.Length > 0)
@@ -113,12 +107,20 @@ public class GameOver : MonoBehaviour
             }
             scoreItemsGameObject = new GameObject[itemsCount];
 
+            List<ScoreItem> userScoreItems = new List<ScoreItem>();
+            for (int i = 0; i < itemsCount; i++)
+            {
+                string name = result[i]["data"]["name"];
+                int score = int.Parse(result[i]["data"]["score"]);
+                userScoreItems.Add(new ScoreItem(name, score));
+            }
+
             userScoreItems.Sort((x, y) => y.score.CompareTo(x.score));
             for (int i = 0; i < itemsCount; i++)
             {
                 scoreItemsGameObject[i] = Instantiate(userScoreItemPrefab, leaderBoardTransform.position + i * new Vector3(0, -55, 0), Quaternion.identity);
                 scoreItemsGameObject[i].GetComponent<UserScoreItem>().nameText.text = userScoreItems[i].name;
-                scoreItemsGameObject[i].GetComponent<UserScoreItem>().scoreText.text = userScoreItems[i].score;
+                scoreItemsGameObject[i].GetComponent<UserScoreItem>().scoreText.text = $"{userScoreItems[i].score}";
                 scoreItemsGameObject[i].GetComponent<Transform>().SetParent(leaderBoardTransform);
                 scoreItemsGameObject[i].GetComponent<Transform>().localScale = new Vector3(1, 1, 1);
             }
@@ -129,5 +131,6 @@ public class GameOver : MonoBehaviour
 
     private void OnGetScoresError()
     {
+
     }
 }
